@@ -1,0 +1,1110 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>永兴糖水店 · 筹备产品清单</title>
+  <meta name="description" content="永兴糖水店筹备产品清单（可编辑）" />
+
+  <style>
+    /* 你回复“1+2”，我按：①显示价格/规格 ②清新明亮（奶茶色/浅底）来制作 */
+    :root{
+      --bg0:#fffaf2;
+      --bg1:#fff3e2;
+      --card:#ffffffcc;
+      --card2:#ffffff;
+      --text:#1c2230;
+      --muted:#6b7280;
+      --line:rgba(20,22,30,.10);
+
+      --tea:#c18b52;        /* 奶茶主色 */
+      --tea2:#f2c28f;       /* 奶茶浅色 */
+      --mint:#2bb673;       /* 清新点缀 */
+      --berry:#ff5a7a;      /* 强调 */
+      --shadow: 0 18px 38px rgba(28,34,48,.10);
+      --shadow2: 0 12px 24px rgba(28,34,48,.08);
+
+      --radius: 18px;
+      --radius2: 26px;
+      --max: 1180px;
+      --font: ui-sans-serif, system-ui, -apple-system, "PingFang SC", "Microsoft YaHei", "Noto Sans CJK SC", Arial, sans-serif;
+    }
+
+    *{ box-sizing:border-box; }
+    html,body{ height:100%; }
+    body{
+      margin:0;
+      font-family:var(--font);
+      color:var(--text);
+      background:
+        radial-gradient(900px 520px at 10% 10%, rgba(193,139,82,.12), transparent 60%),
+        radial-gradient(860px 520px at 90% 18%, rgba(43,182,115,.10), transparent 62%),
+        radial-gradient(900px 520px at 50% 95%, rgba(255,90,122,.06), transparent 58%),
+        linear-gradient(180deg, var(--bg0) 0%, var(--bg1) 100%);
+      overflow-x:hidden;
+    }
+
+    .wrap{ max-width:var(--max); margin:0 auto; padding:24px 18px 56px; }
+
+    /* Header */
+    .hero{
+      position:relative;
+      border-radius:var(--radius2);
+      padding:24px 18px 16px;
+      background:
+        linear-gradient(135deg, rgba(193,139,82,.16), rgba(255,255,255,.72) 55%, rgba(43,182,115,.10));
+      border:1px solid var(--line);
+      box-shadow: var(--shadow);
+      overflow:hidden;
+    }
+    .hero:before{
+      content:"";
+      position:absolute; inset:-2px;
+      background:
+        radial-gradient(540px 220px at 14% 0%, rgba(193,139,82,.22), transparent 65%),
+        radial-gradient(520px 260px at 86% 30%, rgba(43,182,115,.16), transparent 70%);
+      filter: blur(10px);
+      opacity:.9;
+      pointer-events:none;
+    }
+    .hero > *{ position:relative; z-index:1; }
+
+    .brand{
+      display:flex; gap:12px; align-items:center; justify-content:space-between; flex-wrap:wrap;
+    }
+    .brand-left{
+      display:flex; align-items:center; gap:12px; min-width:240px;
+    }
+    .logo{
+      width:46px; height:46px; border-radius:16px;
+      background: linear-gradient(135deg, rgba(193,139,82,.95), rgba(242,194,143,.92));
+      box-shadow: 0 14px 24px rgba(193,139,82,.18);
+      display:grid; place-items:center;
+      font-weight:900; letter-spacing:.6px;
+      color:#ffffff;
+      user-select:none;
+    }
+    .title h1{
+      margin:0;
+      font-size:20px;
+      letter-spacing:.4px;
+      font-weight:900;
+      line-height:1.05;
+    }
+    .title p{
+      margin:6px 0 0;
+      color:var(--muted);
+      font-size:13px;
+      line-height:1.35;
+    }
+    .brand-right{
+      display:flex; gap:10px; align-items:center; flex-wrap:wrap;
+    }
+
+    .pill{
+      display:inline-flex; align-items:center; gap:8px;
+      padding:9px 12px;
+      border-radius:999px;
+      border:1px solid var(--line);
+      background: rgba(255,255,255,.70);
+      color:var(--muted);
+      font-size:12px;
+      box-shadow: var(--shadow2);
+      user-select:none;
+    }
+    .btn{
+      display:inline-flex; align-items:center; gap:8px;
+      padding:10px 12px;
+      border-radius:14px;
+      border:1px solid var(--line);
+      background: rgba(255,255,255,.82);
+      color:var(--text);
+      font-size:13px;
+      cursor:pointer;
+      transition: transform .12s ease, background .12s ease, border-color .12s ease;
+      user-select:none;
+      box-shadow: var(--shadow2);
+    }
+    .btn:hover{ transform: translateY(-1px); border-color: rgba(193,139,82,.35); }
+    .btn.primary{
+      background: linear-gradient(135deg, rgba(193,139,82,.95), rgba(242,194,143,.95));
+      color:#ffffff;
+      border-color: transparent;
+      font-weight:850;
+    }
+
+    /* Search & Nav */
+    .controls{
+      margin-top:14px;
+      display:grid;
+      grid-template-columns: 1.2fr .8fr;
+      gap:12px;
+      align-items:stretch;
+    }
+    @media (max-width: 860px){
+      .controls{ grid-template-columns:1fr; }
+    }
+
+    .manage{
+      margin-top:14px;
+      padding:14px;
+      border-radius:18px;
+      border:1px solid var(--line);
+      background: rgba(255,255,255,.82);
+      box-shadow: var(--shadow2);
+      display:grid;
+      gap:12px;
+    }
+    .manage-title{
+      font-weight:900;
+      font-size:14px;
+      letter-spacing:.2px;
+    }
+    .manage-grid{
+      display:grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap:10px;
+    }
+    @media (max-width: 980px){
+      .manage-grid{ grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (max-width: 560px){
+      .manage-grid{ grid-template-columns: 1fr; }
+    }
+    .field{
+      display:flex;
+      flex-direction:column;
+      gap:6px;
+      font-size:12px;
+      color:var(--muted);
+    }
+    .input, .textarea{
+      border:1px solid rgba(20,22,30,.12);
+      border-radius:12px;
+      padding:10px 12px;
+      font-size:13px;
+      color:var(--text);
+      background:#fff;
+      outline:none;
+      width:100%; /* 强制占满父容器 */
+      min-width:0; /* 允许收缩 */
+    }
+    .textarea{ min-height:66px; resize:vertical; }
+    .manage-actions{
+      display:flex;
+      gap:10px;
+      flex-wrap:wrap;
+    }
+
+    .search{
+      display:flex; gap:10px; align-items:center;
+      padding:12px 14px;
+      border-radius:16px;
+      border:1px solid var(--line);
+      background: rgba(255,255,255,.82);
+      box-shadow: var(--shadow2);
+    }
+    .search input{
+      width:100%;
+      border:0; outline:0;
+      background: transparent;
+      color:var(--text);
+      font-size:14px;
+    }
+    .search input::placeholder{ color: rgba(107,114,128,.75); }
+
+    .tabs{
+      display:flex; gap:8px; flex-wrap:wrap;
+      padding:10px;
+      border-radius:16px;
+      border:1px solid var(--line);
+      background: rgba(255,255,255,.72);
+      box-shadow: var(--shadow2);
+      align-content:flex-start;
+    }
+    .tab{
+      padding:9px 10px;
+      border-radius:999px;
+      border:1px solid rgba(20,22,30,.10);
+      background: rgba(255,255,255,.85);
+      color: var(--muted);
+      font-size:12px;
+      cursor:pointer;
+      transition: background .12s ease, border-color .12s ease, transform .12s ease;
+      user-select:none;
+      white-space:nowrap;
+    }
+    .tab:hover{ transform: translateY(-1px); border-color: rgba(193,139,82,.35); }
+    .tab.active{
+      color:#ffffff;
+      border-color: transparent;
+      background: linear-gradient(135deg, rgba(193,139,82,.95), rgba(242,194,143,.95));
+      font-weight:850;
+    }
+
+    /* Sections */
+    .grid{
+      margin-top:18px;
+      display:grid;
+      grid-template-columns: 1fr;
+      gap:14px;
+    }
+
+    details.section{
+      border-radius:var(--radius);
+      border:1px solid var(--line);
+      background: rgba(255,255,255,.74);
+      box-shadow: var(--shadow2);
+      overflow:hidden;
+    }
+    details.section[open]{
+      background: rgba(255,255,255,.90);
+      border-color: rgba(193,139,82,.22);
+    }
+    summary{
+      list-style:none;
+      cursor:pointer;
+      padding:16px 16px;
+      display:flex; align-items:center; justify-content:space-between; gap:12px;
+      user-select:none;
+    }
+    summary::-webkit-details-marker{ display:none; }
+    .sec-title{
+      display:flex; align-items:baseline; gap:10px; flex-wrap:wrap;
+    }
+    .sec-title strong{
+      font-size:15px;
+      letter-spacing:.2px;
+      font-weight:900;
+    }
+    .sec-title span{
+      font-size:12px;
+      color:var(--muted);
+      padding:4px 10px;
+      border-radius:999px;
+      border:1px solid rgba(20,22,30,.10);
+      background: rgba(255,255,255,.85);
+    }
+    .chev{
+      width:36px; height:36px;
+      border-radius:14px;
+      display:grid; place-items:center;
+      border:1px solid rgba(20,22,30,.10);
+      background: rgba(255,255,255,.90);
+      color: var(--muted);
+      transition: transform .15s ease;
+    }
+    details[open] summary .chev{ transform: rotate(180deg); }
+
+    .items{
+      padding: 0 16px 16px;
+      border-top:1px solid var(--line);
+    }
+    .item-grid{
+      margin-top:14px;
+      display:grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr)); /* 防止grid溢出 */
+      gap:16px; /* 增加卡片间距 */
+    }
+    @media (max-width: 980px){
+      .item-grid{ grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    }
+    @media (max-width: 560px){
+      .item-grid{ grid-template-columns: 1fr; }
+    }
+
+    .item{
+      padding:16px; /* 增加内边距 */
+      border-radius:16px;
+      border:1px solid rgba(20,22,30,.08);
+      background: rgba(255,255,255,.95);
+      display:flex;
+      flex-direction:column;
+      gap:10px;
+      min-width:0; /* 防止flex溢出 */
+    }
+    .item-main{
+      display:grid;
+      grid-template-columns: 1.2fr .8fr;
+      gap:16px; /* 增加左右间距 */
+    }
+    @media (max-width: 680px){
+      .item-main{ grid-template-columns: 1fr; }
+    }
+    .item-name{
+      font-weight:900;
+      font-size:14px;
+    }
+    .item-name .input{
+      font-weight:900;
+      font-size:14px;
+      width:100%; /* 确保输入框不溢出 */
+      min-width:0;
+    }
+    .item-name-input{
+      font-weight:900;
+      color: var(--tea);
+      width:100%;
+      min-width:0;
+    }
+    .name-row{
+      display:flex;
+      align-items:center;
+      gap:10px;
+      min-width:0; /* 允许flex子项收缩 */
+    }
+    .name-thumb-box{
+      position:relative;
+      width:42px; height:42px;
+      flex:0 0 auto;
+    }
+    .name-thumb{
+      width:100%; height:100%;
+      border-radius:12px;
+      object-fit:cover;
+      border:1px solid var(--line);
+      background:#f8f8f8;
+      cursor:pointer;
+    }
+    /* 长按上传的隐藏input */
+    .avatar-file-hidden{
+      position:absolute; inset:0; opacity:0;
+      width:100%; height:100%; cursor:pointer;
+    }
+    .ingredients-input{
+      min-height:120px;
+    }
+    .item-left{ display:flex; flex-direction:column; gap:10px; min-width:0; }
+    .item-right{
+      display:grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap:10px;
+      align-content:start;
+      min-width:0;
+    }
+    .meta-row{
+      display:flex;
+      flex-direction:column;
+      gap:6px;
+    }
+    .meta-label{
+      font-size:12px;
+      color:var(--muted);
+    }
+    .detail-toggle{
+      align-self:flex-start;
+    }
+    .note-row{ grid-column: 1 / -1; }
+    .actions{ grid-column: 1 / -1; display:flex; gap:10px; flex-wrap:wrap; align-items:center; }
+    .file-uploader{ display:flex; gap:8px; align-items:center; flex-wrap:wrap; }
+    .item-details{
+      display:none;
+      border-top:1px solid var(--line);
+      padding-top:10px;
+      gap:10px;
+      flex-direction:column;
+    }
+    .item.open .item-details{
+      display:flex;
+    }
+    .detail-media{
+      display:flex;
+      gap:10px;
+      align-items:flex-start;
+      flex-wrap:wrap;
+    }
+    .item-image{
+      width:120px;
+      height:120px;
+      border-radius:14px;
+      object-fit:cover;
+      border:1px solid var(--line);
+      background:#fff;
+    }
+    .hidden{
+      display:none;
+    }
+    .danger{
+      background: #fff1f2;
+      border-color: rgba(225,29,72,.25);
+      color: #be123c;
+      font-weight:800;
+    }
+
+    /* Footer */
+    .footer{
+      margin-top:18px;
+      color: rgba(107,114,128,.86);
+      font-size:12px;
+      display:flex;
+      justify-content:space-between;
+      gap:12px;
+      flex-wrap:wrap;
+      padding:14px 6px 0;
+    }
+
+    /* Print */
+    @media print{
+      body{ background:#fff; color:#111; }
+      .hero, .controls, .footer .right{ display:none !important; }
+      .wrap{ max-width:100%; padding:0; }
+      details.section{
+        background:#fff !important;
+        border:1px solid #ddd !important;
+        box-shadow:none !important;
+      }
+      summary{ padding:10px 12px; }
+      .items{ border-top:1px solid #eee; }
+      .item{ background:#fff; border:1px solid #eee; }
+      .ghost{ display:none; }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="wrap">
+    <header class="hero">
+      <div class="brand">
+        <div class="brand-left">
+          <div class="logo">YX</div>
+          <div class="title">
+            <h1>永兴糖水店 · 筹备产品清单</h1>
+            <p>支持搜索/分类 · 每个产品可填写配料、成本预算、待定售价 · 可随时增删</p>
+          </div>
+        </div>
+
+        <div class="brand-right">
+          <div class="pill" id="countPill">共 0 个品项</div>
+          <button class="btn" id="expandAllBtn" type="button">展开全部</button>
+          <button class="btn" id="collapseAllBtn" type="button">收起全部</button>
+          <button class="btn primary" id="printBtn" type="button">打印版</button>
+        </div>
+      </div>
+
+      <div class="controls">
+        <div class="search">
+          <span style="opacity:.85">🔎</span>
+          <input id="searchInput" type="search" placeholder="搜索品名，例如：红豆 / 云吞 / 柠檬 / 糯米饭…" autocomplete="off" />
+          <button class="btn" id="clearBtn" type="button" style="padding:8px 10px">清除</button>
+        </div>
+
+        <div class="tabs" id="tabs"></div>
+      </div>
+
+      <section class="manage">
+        <div class="manage-title">筹备产品管理</div>
+        <div class="manage-grid">
+          <label class="field">产品名称<input id="newName" class="input" type="text" placeholder="例如：红豆糖水" /></label>
+          <label class="field">分类<input id="newCategory" class="input" type="text" list="categoryList" placeholder="例如：冷热糖水" /></label>
+          <label class="field">成本预算<input id="newCost" class="input" type="text" placeholder="例如：5.5" /></label>
+          <label class="field">待定售价<input id="newPrice" class="input" type="text" placeholder="例如：12" /></label>
+          <label class="field">产品头像<input id="newAvatarFile" class="input" type="file" accept="image/*" /></label>
+          <label class="field">配料图片<input id="newIngredientImageFile" class="input" type="file" accept="image/*" /></label>
+          <label class="field" style="grid-column: 1 / -1;">配料<textarea id="newIngredients" class="textarea ingredients-input" placeholder="例如：红豆、陈皮、冰糖、水"></textarea></label>
+          <label class="field" style="grid-column: 1 / -1;">描述<textarea id="newDescription" class="textarea" placeholder="例如：主打清润，适合夏天"></textarea></label>
+        </div>
+        <div class="manage-actions">
+          <button class="btn primary" id="addItemBtn" type="button">添加产品</button>
+        </div>
+        <datalist id="categoryList"></datalist>
+      </section>
+    </header>
+
+    <main class="grid" id="menu"></main>
+
+    <div class="footer">
+      <div class="left">
+        备注：当前价格为“占位示例”，你把真实价格发我或自行在数据区补上即可自动生效。
+      </div>
+      <div class="right">© 永兴糖水店</div>
+    </div>
+  </div>
+
+  <script>
+    /**
+     * =========================
+     * 数据区（只改这里）
+     * =========================
+     * 字段说明：
+     * - name: 品名（必填）
+     * - ingredients: 配料（可选）
+     * - cost: 成本预算（可选）
+     * - price: 待定售价（可选）
+     * - tag: 标识（可选）
+     * - note: 备注（可选）
+     */
+    const menuData = [
+      { id:"sweet_hotcold", title:"冷热糖水", subtitle:"传统糖水 / 清润类", items:[
+        { name:"番薯糖水", price:"—" }, { name:"紫薯糖水", price:"—" }, { name:"冰糖雪耳", price:"—" }, { name:"香芋糖水", price:"—" },
+        { name:"糖不甩", price:"—" }, { name:"清补凉", price:"—" }, { name:"莲子雪耳", price:"—" }, { name:"马蹄爽", price:"—" },
+        { name:"茅根竹蔗水", price:"—" }, { name:"海带绿豆", price:"—" }, { name:"绿豆沙", price:"—" }, { name:"红豆花生", price:"—" },
+        { name:"八宝粥", price:"—" }, { name:"莲子百合红豆沙", price:"—" }, { name:"红豆栗子糖水", price:"—", tag:"招牌" },
+      ]},
+
+      { id:"sago", title:"西米露系列", subtitle:"奶 / 椰汁 / 桃胶 / 水果", items:[
+        { name:"奶西米露", price:"—" }, { name:"椰汁西米露", price:"—" }, { name:"红豆奶西米露", price:"—" }, { name:"香芋奶西米露", price:"—" },
+        { name:"莲子奶西米露", price:"—" }, { name:"番薯奶西米露", price:"—" }, { name:"紫薯奶西米露", price:"—" }, { name:"绿豆奶西米露", price:"—" },
+        { name:"杂果奶西米露", price:"—" }, { name:"桃胶奶西米露", price:"—" }, { name:"鲜芒果西米露", price:"—" }, { name:"鲜木瓜西米露", price:"—" },
+        { name:"凉粉奶西米露", price:"—" },
+      ]},
+
+      { id:"balls_sweet", title:"小丸子糖水", subtitle:"软糯小丸子系列", items:[
+        { name:"红豆花生小丸子", price:"—" },
+        { name:"海带绿豆小丸子", price:"—" },
+        { name:"小丸子奶西米露", price:"—" },
+        { name:"红豆板栗小丸子", price:"—" },
+        { name:"炼奶凉粉小丸子（冷）", price:"—" },
+      ]},
+
+      { id:"liangfen", title:"凉粉系列", subtitle:"清爽解腻", items:[
+        { name:"蜜糖凉粉", price:"—" }, { name:"炼奶凉粉", price:"—" }, { name:"莲子凉粉", price:"—" }, { name:"红豆凉粉", price:"—" },
+        { name:"绿豆凉粉", price:"—" }, { name:"杂果凉粉", price:"—" }, { name:"鲜芒果奶凉粉", price:"—" }, { name:"鲜木瓜奶凉粉", price:"—" },
+      ]},
+
+      { id:"paste", title:"糊类", subtitle:"芝麻糊 / 杏仁糊", items:[
+        { name:"杏仁糊", price:"—" }, { name:"芝麻糊", price:"—" }, { name:"奶芝麻糊", price:"—" }, { name:"莲子芝麻糊", price:"—" },
+        { name:"板栗芝麻糊", price:"—" }, { name:"绿豆芝麻糊", price:"—" }, { name:"红豆芝麻糊", price:"—" },
+      ]},
+
+      { id:"guilinggao", title:"龟苓膏系列", subtitle:"清凉回甘", items:[
+        { name:"炼奶龟苓膏", price:"—" }, { name:"蜜糖龟苓膏", price:"—" }, { name:"绿豆龟苓膏", price:"—" },
+        { name:"杂果龟苓膏", price:"—" }, { name:"莲子龟苓膏", price:"—" }, { name:"红豆龟苓膏", price:"—" },
+      ]},
+
+      { id:"congee", title:"生滚靓粥", subtitle:"粥类", items:[
+        { name:"猪骨粥", price:"—" }, { name:"瘦肉粥", price:"—" }, { name:"肉丸粥", price:"—" }, { name:"肉丸瘦肉粥", price:"—" },
+        { name:"牛肚瘦肉蛋花粥", price:"—" }, { name:"皮蛋瘦肉粥", price:"—" }, { name:"猪肝粥", price:"—" }, { name:"牛肚粥", price:"—" },
+        { name:"粉肠粥", price:"—" }, { name:"猪杂粥", price:"—" },
+      ]},
+
+      { id:"stew_soup", title:"原盅炖汤", subtitle:"炖汤类", items:[
+        { name:"花旗参炖竹丝鸡汤", price:"—" },
+        { name:"当归红枣炖猪骨汤", price:"—" },
+        { name:"海底椰炖猪骨汤", price:"—" },
+        { name:"生地玉竹炖猪骨汤", price:"—" },
+        { name:"虫草花炖鸡汤", price:"—" },
+      ]},
+
+      { id:"drinks", title:"奶茶果汁", subtitle:"饮料类（冷饮）", items:[
+        { name:"青麻茶", price:"10", spec:"冷饮" },
+        { name:"什果可乐（冷）", price:"10" },
+        { name:"冻奶茶（冷）", price:"10" },
+        { name:"冻柠七（冷）", price:"10" },
+        { name:"冻柠乐（冷）", price:"10" },
+        { name:"冻柠蜜（冷）", price:"10" },
+        { name:"菊花蜜（冷）", price:"10" },
+        { name:"柑橘蜜（冷）", price:"10" },
+        { name:"柚子茶（冷）", price:"10" },
+        { name:"椰汁冰（冷）", price:"10" },
+        { name:"牛奶冰（冷）", price:"10" },
+        { name:"绿豆冰（冷）", price:"10" },
+        { name:"红豆冰（冷）", price:"10" },
+        { name:"莲子冰（冷）", price:"10" },
+        { name:"杂果冰（冷）", price:"10" },
+        { name:"冻橙汁（冷）", price:"10" },
+        { name:"柠檬汁（冷）", price:"10" },
+        { name:"柠檬茶（冷）", price:"10" },
+        { name:"冻柠宾（冷）", price:"10" },
+      ]},
+
+      { id:"stew_dessert", title:"原盅炖甜品", subtitle:"滋补甜品", items:[
+        { name:"木瓜双皮奶", price:"13", spec:"1人份" },
+        { name:"冰糖木瓜炖雪耳", price:"14", spec:"1人份" },
+        { name:"冰糖雪耳雪梨炖红枣", price:"14", spec:"1人份" },
+        { name:"冰糖莲子元肉炖鸡蛋", price:"14", spec:"1人份" },
+        { name:"冰糖木瓜雪耳炖鲜奶", price:"14", spec:"1人份" },
+        { name:"莲子元肉枸杞雪耳炖桃胶", price:"14", spec:"1人份" },
+      ]},
+
+      { id:"noodle_soup", title:"特色汤粉 / 面类", subtitle:"汤粉汤面系列", items:[
+        { name:"瘦肉汤粉", price:"13起", spec:"1人份" },
+        { name:"粉肠汤粉", price:"13起", spec:"1人份" },
+        { name:"肉丸汤粉", price:"13起", spec:"1人份" },
+        { name:"猪肝汤粉", price:"13起", spec:"1人份" },
+        { name:"牛肉汤粉", price:"14起", spec:"1人份" },
+        { name:"牛腩萝卜汤粉", price:"16起", spec:"1人份" },
+        { name:"排骨萝卜汤粉", price:"16起", spec:"1人份" },
+        { name:"牛肚萝卜汤粉", price:"16起", spec:"1人份" },
+        { name:"猪杂汤粉", price:"16起", spec:"1人份" },
+        { name:"咸丸汤粉（无丸）", price:"19起", spec:"1人份" },
+        { name:"咸丸汤（无丸无粉）", price:"19", spec:"1人份" },
+        { name:"云吞汤面", price:"13起", spec:"1人份" },
+        { name:"净汤云吞", price:"13起", spec:"1人份" },
+        { name:"牛腩汤云吞", price:"16", spec:"1人份" },
+        { name:"牛腩云吞汤粉", price:"16起", spec:"1人份" },
+      ]},
+
+      { id:"noodle_dry", title:"特色捞面 / 粉类", subtitle:"捞粉捞面系列", items:[
+        { name:"斋捞粉", price:"10起", spec:"1人份" },
+        { name:"牛腩捞粉", price:"14起", spec:"1人份" },
+        { name:"排骨捞粉", price:"14起", spec:"1人份" },
+        { name:"净捞云吞", price:"13起", spec:"1人份" },
+        { name:"云吞捞粉", price:"13起", spec:"1人份" },
+        { name:"凉拌河粉（辣）", price:"10", spec:"1人份" },
+        { name:"蚝油捞面", price:"10起", spec:"1人份" },
+        { name:"牛肚捞粉", price:"14起", spec:"1人份" },
+        { name:"牛腩云吞捞粉", price:"16起", spec:"1人份" },
+        { name:"牛肚萝卜捞粉", price:"16起", spec:"1人份" },
+        { name:"排骨萝卜捞粉", price:"16起", spec:"1人份" },
+        { name:"牛腩萝卜捞粉", price:"16起", spec:"1人份" },
+        { name:"牛腩捞云吞", price:"16", spec:"1人份" },
+        { name:"牛肉捞粉", price:"14起", spec:"1人份" },
+      ]},
+
+      { id:"soup", title:"汤类", subtitle:"非炖汤", items:[
+        { name:"猪杂枸杞汤", price:"15", spec:"1人份" },
+        { name:"猪肝瘦肉枸杞汤", price:"15", spec:"1人份" },
+      ]},
+
+      { id:"rice", title:"糯米饭", subtitle:"饭类", items:[
+        { name:"牛腩糯米饭", price:"16", spec:"1人份" },
+        { name:"排骨糯米饭", price:"16", spec:"1人份" },
+        { name:"牛肚糯米饭", price:"16", spec:"1人份" },
+        { name:"叉烧糯米饭", price:"16", spec:"1人份" },
+        { name:"牛腩萝卜糯米饭", price:"18", spec:"1人份" },
+        { name:"牛肚萝卜糯米饭", price:"18", spec:"1人份" },
+        { name:"排骨萝卜糯米饭", price:"—", spec:"1人份" },
+      ]},
+
+      { id:"savory", title:"咸食主食 / 熟食", subtitle:"粉面 / 粽 / 猪脚醋等", items:[
+        { name:"排骨汤粉", price:"—", spec:"1人份" },
+        { name:"咸丸", price:"—", spec:"—" },
+        { name:"蛋黄咸肉粽", price:"—", spec:"1只" },
+        { name:"猪脚醋", price:"—", spec:"—" },
+        { name:"牛腩萝卜", price:"—", spec:"—" },
+        { name:"净牛腩", price:"—", spec:"—" },
+        { name:"净萝卜", price:"—", spec:"—" },
+      ]},
+
+      { id:"snacks", title:"美味小食", subtitle:"炸物 / 凉拌 / 咖喱 / 蛋类", items:[
+        { name:"姜水", price:"—" },
+        { name:"咖喱波波肠（10粒）", price:"—", spec:"10粒" },
+        { name:"咖喱牛筋丸（5粒）", price:"—", spec:"5粒" },
+        { name:"咖喱鱼蛋（10粒）", price:"—", spec:"10粒" },
+        { name:"鲍汁凤爪（6只）", price:"—", spec:"6只" },
+        { name:"香煎饺子", price:"—" },
+        { name:"炸鸡中翅（3只）", price:"—", spec:"3只" },
+        { name:"炸全翅（两只）", price:"—", spec:"2只" },
+        { name:"炸云吞", price:"—" },
+        { name:"炸薯条", price:"—" },
+        { name:"炸鸡块（8块）", price:"—", spec:"8块" },
+        { name:"香煎生肉包（5只）", price:"—", spec:"5只" },
+        { name:"凉拌青瓜（辣）", price:"—", spec:"辣" },
+        { name:"凉拌莲藕（辣）", price:"—", spec:"辣" },
+        { name:"凉拌木耳（辣）", price:"—", spec:"辣" },
+        { name:"凉拌海带丝", price:"—" },
+        { name:"凉拌双拼（辣）", price:"—", spec:"辣" },
+        { name:"凉拌牛肚", price:"—" },
+        { name:"白灼生菜", price:"—" },
+        { name:"白灼菜心", price:"—" },
+        { name:"白灼白菜", price:"—" },
+        { name:"白灼韭菜", price:"—" },
+        { name:"盐蛋", price:"—", spec:"1只" },
+        { name:"醋蛋", price:"—", spec:"1只" },
+        { name:"鲍汁蛋", price:"—", spec:"1只" },
+        { name:"糖蛋", price:"—", spec:"1只" },
+      ]},
+
+      { id:"other", title:"其它", subtitle:"补充项", items:[
+        { name:"打包盒子", price:"—", spec:"加购", note:"如需额外盒子，可单独加购" }
+      ]},
+    ];
+
+    const LS_KEY = "yx_prep_products_v1";
+    const $menu = document.getElementById("menu");
+    const $tabs = document.getElementById("tabs");
+    const $search = document.getElementById("searchInput");
+    const $countPill = document.getElementById("countPill");
+    const $newName = document.getElementById("newName");
+    const $newCategory = document.getElementById("newCategory");
+    const $newIngredients = document.getElementById("newIngredients");
+    const $newCost = document.getElementById("newCost");
+    const $newPrice = document.getElementById("newPrice");
+    const $newAvatarFile = document.getElementById("newAvatarFile");
+    const $newIngredientImageFile = document.getElementById("newIngredientImageFile");
+    const $newDescription = document.getElementById("newDescription");
+    const $addItemBtn = document.getElementById("addItemBtn");
+    const $categoryList = document.getElementById("categoryList");
+
+    const state = { query:"", activeId:"all" };
+    let data = loadData() || normalizeData(menuData);
+
+    function normalizeData(list){
+      return list.map((c, cidx)=>({
+        id: c.id || `cat_${cidx}_${Date.now()}`,
+        title: c.title || "未分类",
+        subtitle: c.subtitle || "",
+        items: (c.items || []).map((it, iidx)=>({
+          id: it.id || `item_${cidx}_${iidx}_${Date.now()}`,
+          name: it.name || "",
+          ingredients: it.ingredients || "",
+          avatar: it.avatar || "",
+          ingredientImage: it.ingredientImage || "",
+          description: it.description || "",
+          cost: it.cost || "",
+          price: it.price || "",
+          tag: it.tag || "",
+          note: it.note || ""
+        }))
+      }));
+    }
+    function loadData(){
+      try{
+        const raw = localStorage.getItem(LS_KEY);
+        if(!raw) return null;
+        const parsed = JSON.parse(raw);
+        return normalizeData(parsed);
+      }catch(e){
+        return null;
+      }
+    }
+    function saveData(){
+      localStorage.setItem(LS_KEY, JSON.stringify(data));
+    }
+    function escapeHtml(str){
+      return String(str)
+        .replaceAll("&","&amp;")
+        .replaceAll("<","&lt;")
+        .replaceAll(">","&gt;")
+        .replaceAll('"',"&quot;")
+        .replaceAll("'","&#039;");
+    }
+    function getCategoryByTitle(title){
+      const t = title.trim();
+      return data.find(c => c.title === t);
+    }
+    function refreshCategoryList(){
+      $categoryList.innerHTML = data.map(c => `<option value="${escapeHtml(c.title)}"></option>`).join("");
+    }
+
+    function updateCount(shown, filtered){
+      const totalItems = data.reduce((sum, c) => sum + c.items.length, 0);
+      $countPill.textContent = filtered
+        ? `当前显示 ${shown} 个品项`
+        : `共 ${totalItems} 个品项`;
+    }
+
+    function renderTabs(){
+      const all = [{ id:"all", title:"全部品类" }, ...data.map(c=>({id:c.id,title:c.title}))];
+      $tabs.innerHTML = all.map(t => `
+        <div class="tab ${t.id===state.activeId ? "active":""}" data-id="${t.id}">
+          ${escapeHtml(t.title)}
+        </div>
+      `).join("");
+      $tabs.querySelectorAll(".tab").forEach(el=>{
+        el.addEventListener("click", ()=>{
+          state.activeId = el.dataset.id;
+          renderTabs();
+          renderMenu();
+          document.querySelector(".controls").scrollIntoView({behavior:"smooth", block:"start"});
+        });
+      });
+    }
+
+    function renderMenu(){
+      const q = state.query.trim().toLowerCase();
+      const matchItem = (it) => {
+        if(!q) return true;
+        const hay = [
+          it.name,
+          it.ingredients,
+          it.cost,
+          it.price,
+          it.description,
+          it.note,
+          it.tag
+        ].filter(Boolean).join(" ").toLowerCase();
+        return hay.includes(q);
+      };
+      const cats = data
+        .filter(c => state.activeId==="all" ? true : c.id===state.activeId)
+        .map(c => ({ ...c, items: c.items.filter(matchItem) }))
+        .filter(c => c.items.length>0 || q==="");
+
+      const shown = cats.reduce((sum,c)=>sum + c.items.length,0);
+      updateCount(shown, q || state.activeId!=="all");
+
+      $menu.innerHTML = cats.map((c, idx) => {
+        const count = c.items.length;
+        const openAttr = (state.activeId!=="all" || state.query) ? "open" : (idx<3 ? "open": "");
+        return `
+          <details class="section" id="${c.id}" ${openAttr}>
+            <summary>
+              <div class="sec-title">
+                <strong>${escapeHtml(c.title)}</strong>
+                <span>${escapeHtml(c.subtitle)} · ${count} 项</span>
+              </div>
+              <div class="chev">⌄</div>
+            </summary>
+
+            <div class="items">
+              <div class="item-grid">
+                ${c.items.map(it => `
+                  <div class="item" data-cat-id="${c.id}" data-item-id="${it.id}">
+                    <div class="item-main">
+                      <div class="item-left">
+                        <label class="meta-row">
+                          <span class="meta-label">品名</span>
+                          <div class="name-row">
+                            <div class="name-thumb-box" title="点击或长按更换头像">
+                              <img class="name-thumb" src="${it.avatar || 'data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>📷</text></svg>'}" alt="" />
+                              <input class="avatar-file-hidden" data-field="avatarFile" type="file" accept="image/*" />
+                            </div>
+                            <input class="input item-name-input" data-field="name" type="text" value="${escapeHtml(it.name)}" />
+                          </div>
+                        </label>
+                        <!-- 移除原来的产品头像上传行 -->
+                        <label class="meta-row">
+                          <span class="meta-label">配料</span>
+                          <textarea class="textarea ingredients-input" data-field="ingredients">${escapeHtml(it.ingredients || "")}</textarea>
+                        </label>
+                      </div>
+                      <div class="item-right">
+                        <label class="meta-row">
+                          <span class="meta-label">成本预算</span>
+                          <input class="input" data-field="cost" type="text" value="${escapeHtml(it.cost || "")}" />
+                        </label>
+                        <label class="meta-row">
+                          <span class="meta-label">待定售价</span>
+                          <input class="input" data-field="price" type="text" value="${escapeHtml(it.price || "")}" />
+                        </label>
+                        <label class="meta-row note-row">
+                          <span class="meta-label">备注</span>
+                          <input class="input" data-field="note" type="text" value="${escapeHtml(it.note || "")}" />
+                        </label>
+                        <div class="actions">
+                          <button class="btn detail-toggle" data-action="toggle" type="button">查看详细</button>
+                          <button class="btn danger" data-action="delete" type="button">删除</button>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="item-details">
+                      <div class="detail-media">
+                        <img class="item-image ${it.ingredientImage ? "" : "hidden"}" src="${escapeHtml(it.ingredientImage || "")}" alt="" />
+                        <label class="meta-row" style="flex:1 1 240px;">
+                          <span class="meta-label">配料图片</span>
+                          <div class="file-uploader">
+                            <input class="input" data-field="ingredientImageFile" type="file" accept="image/*" />
+                            <button class="btn" data-action="clear-ingredient-image" type="button">移除配料图片</button>
+                          </div>
+                        </label>
+                      </div>
+                      <label class="meta-row">
+                        <span class="meta-label">描述</span>
+                        <textarea class="textarea" data-field="description">${escapeHtml(it.description || "")}</textarea>
+                      </label>
+                    </div>
+                  </div>
+                `).join("")}
+              </div>
+            </div>
+          </details>
+        `;
+      }).join("");
+
+      if (shown === 0){
+        $menu.innerHTML = `
+          <div style="
+            padding:18px; border-radius:18px;
+            border:1px solid var(--line);
+            background: rgba(255,255,255,.82);
+            color: var(--muted);
+            box-shadow: var(--shadow2);
+          ">
+            未找到匹配的品项。请尝试更换关键词（例如：红豆 / 云吞 / 柠檬 / 糯米饭）。
+          </div>
+        `;
+      }
+    }
+
+    // ---------- Events ----------
+    document.getElementById("clearBtn").addEventListener("click", ()=>{
+      $search.value = "";
+      state.query = "";
+      renderMenu();
+      $search.focus();
+    });
+
+    $search.addEventListener("input", (e)=>{
+      state.query = e.target.value || "";
+      renderMenu();
+    });
+
+    function applyImage(itemEl, item, field, dataUrl, selector){
+      item[field] = dataUrl || "";
+      const img = itemEl.querySelector(selector);
+      if(img){
+        // 如果是头像，空的时候显示默认占位图
+        if(selector === ".name-thumb" && !dataUrl){
+          img.src = 'data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>📷</text></svg>';
+          img.classList.remove("hidden");
+        } else if(dataUrl){
+          img.src = dataUrl;
+          img.classList.remove("hidden");
+        } else {
+          img.removeAttribute("src");
+          img.classList.add("hidden");
+        }
+      }
+    }
+
+    $menu.addEventListener("input", (e)=>{
+      const field = e.target.dataset.field;
+      if(!field) return;
+      const itemEl = e.target.closest(".item");
+      if(!itemEl) return;
+      const catId = itemEl.dataset.catId;
+      const itemId = itemEl.dataset.itemId;
+      const cat = data.find(c => c.id === catId);
+      if(!cat) return;
+      const item = cat.items.find(it => it.id === itemId);
+      if(!item) return;
+      item[field] = e.target.value;
+      saveData();
+    });
+
+    $menu.addEventListener("change", (e)=>{
+      const field = e.target.dataset.field;
+      const itemEl = e.target.closest(".item");
+      if(!itemEl) return;
+      const catId = itemEl.dataset.catId;
+      const itemId = itemEl.dataset.itemId;
+      const cat = data.find(c => c.id === catId);
+      if(!cat) return;
+      const item = cat.items.find(it => it.id === itemId);
+      if(!item) return;
+      const file = e.target.files && e.target.files[0];
+      if(!file) return;
+      const reader = new FileReader();
+      reader.onload = () => {
+        if(field === "ingredientImageFile"){
+          applyImage(itemEl, item, "ingredientImage", reader.result, ".item-image");
+        }
+        if(field === "avatarFile"){
+          applyImage(itemEl, item, "avatar", reader.result, ".name-thumb");
+        }
+        saveData();
+      };
+      reader.readAsDataURL(file);
+    });
+
+    $menu.addEventListener("click", (e)=>{
+      const actionEl = e.target.closest("[data-action]");
+      if(!actionEl) return;
+      const action = actionEl.dataset.action;
+      const itemEl = actionEl.closest(".item");
+      if(!itemEl) return;
+      if(action === "toggle"){
+        const isOpen = itemEl.classList.toggle("open");
+        actionEl.textContent = isOpen ? "收起详细" : "查看详细";
+        return;
+      }
+      if(action === "clear-ingredient-image"){
+        const catId = itemEl.dataset.catId;
+        const itemId = itemEl.dataset.itemId;
+        const cat = data.find(c => c.id === catId);
+        if(!cat) return;
+        const item = cat.items.find(it => it.id === itemId);
+        if(!item) return;
+        applyImage(itemEl, item, "ingredientImage", "", ".item-image");
+        saveData();
+        return;
+      }
+      if(action === "clear-avatar"){
+        const catId = itemEl.dataset.catId;
+        const itemId = itemEl.dataset.itemId;
+        const cat = data.find(c => c.id === catId);
+        if(!cat) return;
+        const item = cat.items.find(it => it.id === itemId);
+        if(!item) return;
+        applyImage(itemEl, item, "avatar", "", ".name-thumb");
+        saveData();
+        return;
+      }
+      if(action !== "delete") return;
+      const catId = itemEl.dataset.catId;
+      const itemId = itemEl.dataset.itemId;
+      const cat = data.find(c => c.id === catId);
+      if(!cat) return;
+      cat.items = cat.items.filter(it => it.id !== itemId);
+      saveData();
+      renderMenu();
+      renderTabs();
+      refreshCategoryList();
+    });
+
+    $addItemBtn.addEventListener("click", ()=>{
+      const name = $newName.value.trim();
+      const categoryName = $newCategory.value.trim() || "未分类";
+      if(!name){
+        $newName.focus();
+        return;
+      }
+      let cat = getCategoryByTitle(categoryName);
+      if(!cat){
+        cat = {
+          id: `cat_${Date.now()}_${Math.random().toString(16).slice(2,8)}`,
+          title: categoryName,
+          subtitle: "自定义新增",
+          items:[]
+        };
+        data.push(cat);
+      }
+      const finishAdd = (avatarData="", ingredientData="")=>{
+        const newItem = {
+          id: `item_${Date.now()}_${Math.random().toString(16).slice(2,8)}`,
+          name,
+          ingredients: $newIngredients.value.trim(),
+          avatar: avatarData,
+          ingredientImage: ingredientData,
+          description: $newDescription.value.trim(),
+          cost: $newCost.value.trim(),
+          price: $newPrice.value.trim(),
+          note: "",
+          tag: ""
+        };
+        cat.items.unshift(newItem);
+        $newName.value = "";
+        $newIngredients.value = "";
+        $newCost.value = "";
+        $newPrice.value = "";
+        $newDescription.value = "";
+        if($newAvatarFile) $newAvatarFile.value = "";
+        if($newIngredientImageFile) $newIngredientImageFile.value = "";
+        saveData();
+        renderTabs();
+        renderMenu();
+        refreshCategoryList();
+      };
+      const readFile = (file, done)=>{
+        if(!file) return done("");
+        const reader = new FileReader();
+        reader.onload = () => done(reader.result);
+        reader.readAsDataURL(file);
+      };
+      const avatarFile = $newAvatarFile && $newAvatarFile.files && $newAvatarFile.files[0];
+      const ingredientFile = $newIngredientImageFile && $newIngredientImageFile.files && $newIngredientImageFile.files[0];
+      readFile(avatarFile, (avatarData)=>{
+        readFile(ingredientFile, (ingredientData)=>{
+          finishAdd(avatarData, ingredientData);
+        });
+      });
+    });
+
+    document.getElementById("expandAllBtn").addEventListener("click", ()=>{
+      document.querySelectorAll("details.section").forEach(d => d.open = true);
+    });
+
+    document.getElementById("collapseAllBtn").addEventListener("click", ()=>{
+      document.querySelectorAll("details.section").forEach(d => d.open = false);
+    });
+
+    document.getElementById("printBtn").addEventListener("click", ()=> window.print());
+
+    // init
+    refreshCategoryList();
+    renderTabs();
+    renderMenu();
+  </script>
+</body>
+</html>
