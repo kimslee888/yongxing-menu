@@ -516,7 +516,10 @@
       <div class="left">
         备注：当前价格为“占位示例”，你把真实价格发我或自行在数据区补上即可自动生效。
       </div>
-      <div class="right">© 永兴糖水店</div>
+      <div class="right">
+        <button id="resetBtn" style="background:transparent;border:0;color:var(--muted);cursor:pointer;font-size:12px;">⚠️ 重置默认数据</button>
+        © 永兴糖水店
+      </div>
     </div>
   </div>
 
@@ -1231,6 +1234,15 @@
     });
 
     document.getElementById("printBtn").addEventListener("click", ()=> window.print());
+
+    document.getElementById("resetBtn").addEventListener("click", async ()=>{
+      if(!confirm("确定要重置为默认数据吗？这会覆盖云端现有的数据！")) return;
+      data = normalizeData(menuData);
+      console.log("正在重置数据...");
+      await saveDataToCloud();
+      alert("重置成功！页面将刷新。");
+      location.reload();
+    });
 
     // init
     refreshCategoryList();
