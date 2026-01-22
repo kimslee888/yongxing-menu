@@ -520,7 +520,17 @@
     </div>
   </div>
 
+  <script src="https://unpkg.com/@supabase/supabase-js@2"></script>
   <script>
+    /**
+     * =========================
+     * Supabase 配置
+     * =========================
+     */
+    const SUPABASE_URL = "https://layafuilsdxccoglkkrb.supabase.co";
+    const SUPABASE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImxheWFmdWlsc2R4Y2NvZ2xra3JiIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjkwODg2NjIsImV4cCI6MjA4NDY2NDY2Mn0.sfBdtY_296l5SlS_qMV8sUtix2chE70ZhyPdluxAbEc";
+    const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+
     /**
      * =========================
      * 数据区（只改这里）
@@ -727,7 +737,27 @@
     const $categoryList = document.getElementById("categoryList");
 
     const state = { query:"", activeId:"all" };
-    let data = loadData() || normalizeData(menuData);
+    // let data = loadData() || normalizeData(menuData);
+    let data = [];
+    let dbRecordId = null; // 用于记录数据库中那一行数据的ID
+
+    // 初始化：先尝试从云端加载，如果云端是空的，就用本地默认数据并上传
+    initApp();
+
+    async function initApp(){
+      const remote = await loadDataFromCloud();
+      if(remote && remote.length > 0){
+        data = normalizeData(remote);
+        console.log("已加载云端数据");
+      } else {
+        data = normalizeData(menuData);
+        console.log("云端无数据，使用默认数据并初始化");
+        saveDataToCloud(); // 初始化云端
+      }
+      refreshCategoryList();
+      renderTabs();
+      renderMenu();
+    }
 
     function normalizeData(list){
       return list.map((c, cidx)=>({
@@ -748,19 +778,102 @@
         }))
       }));
     }
-    function loadData(){
-      try{
-        const raw = localStorage.getItem(LS_KEY);
-        if(!raw) return null;
-        const parsed = JSON.parse(raw);
-        return normalizeData(parsed);
-      }catch(e){
+    // 替换原来的 loadData
+    // function loadData(){ ... }
+    
+    // 从 Supabase 读取数据
+    async function loadDataFromCloud(){
+      try {
+        const { data: rows, error } = await supabase
+          .from('menu_items')
+          .select('*')
+          .limit(1);
+        
+        if(error) {
+          console.error("加载失败:", error);
+          return null;
+        }
+        if(rows && rows.length > 0){
+          dbRecordId = rows[0].id;
+          return rows[0].data; // 我们把整个大数组存在 data 字段里
+        }
+        return null;
+      } catch(e){
+        console.error("网络错误:", e);
         return null;
       }
     }
+
+    // 保存数据到 Supabase
+    // 使用防抖，避免频繁请求
+    let saveTimer = null;
     function saveData(){
-      localStorage.setItem(LS_KEY, JSON.stringify(data));
+      // 本地先更新界面（乐观更新）
+      // ...其实不需要做额外操作，因为 data 已经在内存里改了
+      
+      clearTimeout(saveTimer);
+      saveTimer = setTimeout(saveDataToCloud, 1000); // 1秒后自动保存
     }
+
+    async function saveDataToCloud(){
+      try {
+        const payload = { data: data };
+        let error;
+        
+        if(dbRecordId){
+          // 更新现有记录
+          const res = await supabase
+            .from('menu_items')
+            .update(payload)
+            .eq('id', dbRecordId);
+          error = res.error;
+        } else {
+          // 插入新记录
+          const res = await supabase
+            .from('menu_items')
+            .insert([payload])
+            .select();
+          if(res.data && res.data.length > 0){
+            dbRecordId = res.data[0].id;
+          }
+          error = res.error;
+        }
+
+        if(error) console.error("保存失败:", error);
+        else console.log("云端保存成功");
+        
+      } catch(e){
+        console.error("保存异常:", e);
+      }
+    }
+
+    // 上传图片到 Supabase Storage
+    async function uploadImageToCloud(file){
+      if(!file) return "";
+      const ext = file.name.split('.').pop();
+      const fileName = `${Date.now()}_${Math.random().toString(36).slice(2)}.${ext}`;
+      const filePath = fileName;
+
+      try {
+        const { data, error } = await supabase.storage
+          .from('images')
+          .upload(filePath, file);
+
+        if(error) throw error;
+
+        // 获取公开链接
+        const { data: { publicUrl } } = supabase.storage
+          .from('images')
+          .getPublicUrl(filePath);
+          
+        return publicUrl;
+      } catch(e){
+        console.error("图片上传失败:", e);
+        alert("图片上传失败，请重试");
+        return "";
+      }
+    }
+
     function escapeHtml(str){
       return String(str)
         .replaceAll("&","&amp;")
@@ -963,7 +1076,7 @@
       saveData();
     });
 
-    $menu.addEventListener("change", (e)=>{
+    $menu.addEventListener("change", async (e)=>{
       const field = e.target.dataset.field;
       const itemEl = e.target.closest(".item");
       if(!itemEl) return;
@@ -975,17 +1088,27 @@
       if(!item) return;
       const file = e.target.files && e.target.files[0];
       if(!file) return;
-      const reader = new FileReader();
-      reader.onload = () => {
+
+      // 显示“上传中...”状态
+      const label = e.target.closest("label") || e.target.closest(".name-thumb-box");
+      const originalText = label.getAttribute("title");
+      label.setAttribute("title", "正在上传...");
+      e.target.disabled = true;
+
+      const url = await uploadImageToCloud(file);
+      
+      e.target.disabled = false;
+      label.setAttribute("title", originalText || "");
+
+      if(url){
         if(field === "ingredientImageFile"){
-          applyImage(itemEl, item, "ingredientImage", reader.result, ".item-image");
+          applyImage(itemEl, item, "ingredientImage", url, ".item-image");
         }
         if(field === "avatarFile"){
-          applyImage(itemEl, item, "avatar", reader.result, ".name-thumb");
+          applyImage(itemEl, item, "avatar", url, ".name-thumb");
         }
         saveData();
-      };
-      reader.readAsDataURL(file);
+      }
     });
 
     $menu.addEventListener("click", (e)=>{
@@ -1033,13 +1156,23 @@
       refreshCategoryList();
     });
 
-    $addItemBtn.addEventListener("click", ()=>{
+    $addItemBtn.addEventListener("click", async ()=>{
       const name = $newName.value.trim();
       const categoryName = $newCategory.value.trim() || "未分类";
       if(!name){
         $newName.focus();
         return;
       }
+      
+      $addItemBtn.textContent = "添加中...";
+      $addItemBtn.disabled = true;
+
+      const avatarFile = $newAvatarFile && $newAvatarFile.files && $newAvatarFile.files[0];
+      const ingredientFile = $newIngredientImageFile && $newIngredientImageFile.files && $newIngredientImageFile.files[0];
+
+      const avatarUrl = await uploadImageToCloud(avatarFile);
+      const ingredientUrl = await uploadImageToCloud(ingredientFile);
+
       let cat = getCategoryByTitle(categoryName);
       if(!cat){
         cat = {
@@ -1050,45 +1183,37 @@
         };
         data.push(cat);
       }
-      const finishAdd = (avatarData="", ingredientData="")=>{
-        const newItem = {
-          id: `item_${Date.now()}_${Math.random().toString(16).slice(2,8)}`,
-          name,
-          ingredients: $newIngredients.value.trim(),
-          avatar: avatarData,
-          ingredientImage: ingredientData,
-          description: $newDescription.value.trim(),
-          cost: $newCost.value.trim(),
-          price: $newPrice.value.trim(),
-          note: "",
-          tag: ""
-        };
-        cat.items.unshift(newItem);
-        $newName.value = "";
-        $newIngredients.value = "";
-        $newCost.value = "";
-        $newPrice.value = "";
-        $newDescription.value = "";
-        if($newAvatarFile) $newAvatarFile.value = "";
-        if($newIngredientImageFile) $newIngredientImageFile.value = "";
-        saveData();
-        renderTabs();
-        renderMenu();
-        refreshCategoryList();
+      
+      const newItem = {
+        id: `item_${Date.now()}_${Math.random().toString(16).slice(2,8)}`,
+        name,
+        ingredients: $newIngredients.value.trim(),
+        avatar: avatarUrl,
+        ingredientImage: ingredientUrl,
+        description: $newDescription.value.trim(),
+        cost: $newCost.value.trim(),
+        price: $newPrice.value.trim(),
+        note: "",
+        tag: ""
       };
-      const readFile = (file, done)=>{
-        if(!file) return done("");
-        const reader = new FileReader();
-        reader.onload = () => done(reader.result);
-        reader.readAsDataURL(file);
-      };
-      const avatarFile = $newAvatarFile && $newAvatarFile.files && $newAvatarFile.files[0];
-      const ingredientFile = $newIngredientImageFile && $newIngredientImageFile.files && $newIngredientImageFile.files[0];
-      readFile(avatarFile, (avatarData)=>{
-        readFile(ingredientFile, (ingredientData)=>{
-          finishAdd(avatarData, ingredientData);
-        });
-      });
+      
+      cat.items.unshift(newItem);
+      
+      $newName.value = "";
+      $newIngredients.value = "";
+      $newCost.value = "";
+      $newPrice.value = "";
+      $newDescription.value = "";
+      if($newAvatarFile) $newAvatarFile.value = "";
+      if($newIngredientImageFile) $newIngredientImageFile.value = "";
+      
+      saveData();
+      renderTabs();
+      renderMenu();
+      refreshCategoryList();
+
+      $addItemBtn.textContent = "添加产品";
+      $addItemBtn.disabled = false;
     });
 
     document.getElementById("expandAllBtn").addEventListener("click", ()=>{
