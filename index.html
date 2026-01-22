@@ -746,13 +746,19 @@
 
     async function initApp(){
       const remote = await loadDataFromCloud();
-      if(remote && remote.length > 0){
+      // 这里的判断逻辑要改一下：
+      // 如果 remote 是 null，说明网络出错或表不存在
+      // 如果 remote 是 [] (空数组)，说明表里有记录但 data 字段为空
+      // 我们要确保 remote 是一个有内容的数组才算加载成功
+      if(remote && Array.isArray(remote) && remote.length > 0){
         data = normalizeData(remote);
-        console.log("已加载云端数据");
+        console.log("已加载云端数据", data);
       } else {
+        // 如果云端没数据，或者数据格式不对，就用本地默认数据
+        console.log("云端无有效数据，使用默认数据并上传...");
         data = normalizeData(menuData);
-        console.log("云端无数据，使用默认数据并初始化");
-        saveDataToCloud(); // 初始化云端
+        // 立即把这份默认数据存到云端，这样下次就有数据了
+        await saveDataToCloud();
       }
       refreshCategoryList();
       renderTabs();
